@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context/Auth';
-import  { useContext } from 'react';
+import { useContext } from 'react';
 
 const Login = () => {
-    const {login} = useContext(AuthContext)
+    const { login } = useContext(AuthContext)
     const navigate = useNavigate();
 
     const {
@@ -39,7 +39,7 @@ const Login = () => {
             const userInfo = {
                 id: result.id,
                 token: result.token
-              
+
 
             }
             localStorage.setItem('userInfo', JSON.stringify(userInfo))
@@ -70,7 +70,7 @@ const Login = () => {
                             <span key={i} />
                         ))}
                     </div>
-                        
+
                     <div className="ue-building ue-building-three">
                         {Array.from({ length: 10 }, (_, i) => (
                             <span key={i} />

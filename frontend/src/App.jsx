@@ -16,6 +16,8 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from './component/backend/Dashboard';
 import RequireAuth from './component/common/RequireAuth';
+import {default as ShowServices} from './component/backend/services/Show';
+import {default as CreateServices} from './component/backend/services/Create';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -37,6 +39,18 @@ function App() {
           <Route path='/admin/dashboard' element={
             <RequireAuth>
               <Dashboard/>
+            </RequireAuth>
+            
+            } />
+          <Route path='/admin/services' element={
+            <RequireAuth>
+              <ShowServices/>
+            </RequireAuth>
+            
+            } />
+          <Route path='/admin/services/create' element={
+            <RequireAuth>
+              <CreateServices/>
             </RequireAuth>
             
             } />
