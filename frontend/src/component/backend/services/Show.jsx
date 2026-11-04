@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import Header from '../../common/Header'
-import Footer from '../../common/Footer'
-import SideBar from '../../common/SideBar'
-import { apiUrl, token } from '../../common/http'
+// import React,  from 'react'
+import { useEffect, useState } from 'react';
+import Header from '../../common/Header';
+import Footer from '../../common/Footer';
+import SideBar from '../../common/SideBar';
+import { apiUrl, token } from '../../common/http';
 import { Link } from 'react-router-dom';
 
 const Show = () => {
