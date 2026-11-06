@@ -63,7 +63,7 @@ const Show = () => {
                                             {
                                                 services && services.map(service => {
                                                     return (
-                                                        <tr>
+                                                        <tr key={`service-${service.id}`}>
                                                             <td>{service.id}</td>
                                                             <td>{service.title}</td>
                                                             <td>{service.slug}</td>

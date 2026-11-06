@@ -50,7 +50,7 @@ const Home = () => {
 
         </section>
         {/* About Us section */}
-           <About />
+        <About />
 
         {/* Our Services */}
 
@@ -294,10 +294,21 @@ const Home = () => {
               <p>We offer a diverse array of construction services, spanning residential, commercial, and industrial projects.</p>
             </div>
             <Swiper
+
               modules={[Pagination]}
-              spaceBetween={50}
-              slidesPerView={3}
+              spaceBetween={25}
+              slidesPerView={1}
               pagination={{ clickable: true }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+              }}
+              className="testimonial-slider"
+
 
             >
               <SwiperSlide>
@@ -468,10 +479,10 @@ const Home = () => {
                     <img src={BlogImg} alt="" className='w-100' />
                   </div>
                   <div className='card-body p-5'>
-                     <div className='mb-3'>
+                    <div className='mb-3'>
                       <a href="#" className='title'>Dummy blog title</a>
-                     </div>
-                     <a href="#" className='btn btn-primary small'>Read More</a>
+                    </div>
+                    <a href="#" className='btn btn-primary small'>Read More</a>
                   </div>
                 </div>
               </div>
@@ -481,10 +492,10 @@ const Home = () => {
                     <img src={BlogImg} alt="" className='w-100' />
                   </div>
                   <div className='card-body p-5'>
-                     <div className='mb-3'>
+                    <div className='mb-3'>
                       <a href="#" className='title'>Dummy blog title</a>
-                     </div>
-                     <a href="#" className='btn btn-primary small'>Read More</a>
+                    </div>
+                    <a href="#" className='btn btn-primary small'>Read More</a>
                   </div>
                 </div>
               </div>
@@ -494,10 +505,10 @@ const Home = () => {
                     <img src={BlogImg} alt="" className='w-100' />
                   </div>
                   <div className='card-body p-5'>
-                     <div className='mb-3'>
+                    <div className='mb-3'>
                       <a href="#" className='title'>Dummy blog title</a>
-                     </div>
-                     <a href="#" className='btn btn-primary small'>Read More</a>
+                    </div>
+                    <a href="#" className='btn btn-primary small'>Read More</a>
                   </div>
                 </div>
               </div>
