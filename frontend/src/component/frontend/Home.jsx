@@ -308,8 +308,6 @@ const Home = () => {
                 },
               }}
               className="testimonial-slider"
-
-
             >
               <SwiperSlide>
                 <div className='card shadow border-0'>
