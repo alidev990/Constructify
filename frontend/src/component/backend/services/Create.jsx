@@ -18,7 +18,7 @@ const Create = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        const res = await fetch(apiUrl + 'service/store',  {
+        const res = await fetch(apiUrl + 'service/store', {
             'method': 'POST',
             'headers': {
                 'Content-type': 'application/json',
@@ -26,16 +26,21 @@ const Create = () => {
                 'Authorization': `Bearer ${token()}`
 
             },
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         });
         const result = await res.json();
-        if(result.status == true){
+
+
+        if (res.ok) {
             toast.success(result.message);
             navigate('/admin/services');
-        }else{
+        } else {
             toast.error(result.message);
         }
+
         console.log(result);
+        console.log("HTTP Status:", res.status);
+        console.log("API Result:", result);
     }
 
     return (

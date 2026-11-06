@@ -973,3 +973,12 @@ footer {
         }
     }
 }
+/* Success Toast Green */
+.Toastify__toast--success{
+    background-color: #28a745 !important;
+    color: white !important;
+}
+/* Success icon white */
+.Toastify__toast--success .Toastify__toast-icon svg {
+    fill: white;
+}
