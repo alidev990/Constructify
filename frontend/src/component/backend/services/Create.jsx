@@ -1,4 +1,4 @@
-// import React from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import Header from '../../common/Header';
 import Footer from '../../common/Footer';
 import SideBar from '../../common/SideBar';
@@ -6,8 +6,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { apiUrl, token } from '../../common/http';
 import { toast } from 'react-toastify';
+import JoditEditor from 'jodit-react';
 
-const Create = () => {
+const Create = ({ placeholder }) => {
+    const editor = useRef(null);
+    const [contet, setContent] = useState('');
+    const [isDisable, setIsDisable] = useState(false);
+    const [imageId, setImageId] = useState(null);
+    const config = useMemo(() => ({
+        readonly: false,
+        placeholder: placeholder || 'Content'
+    }),
+        [placeholder]
+    );
     const {
         register,
         handleSubmit,
@@ -18,6 +29,7 @@ const Create = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
+        const newData = { ...data, "content": content }
         const res = await fetch(apiUrl + 'service/store', {
             'method': 'POST',
             'headers': {
@@ -26,7 +38,7 @@ const Create = () => {
                 'Authorization': `Bearer ${token()}`
 
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(newData)
         });
         const result = await res.json();
 
@@ -41,6 +53,33 @@ const Create = () => {
         console.log(result);
         console.log("HTTP Status:", res.status);
         console.log("API Result:", result);
+    }
+
+    const handleFile = async (e) => {
+        const formData = new FormData();
+        const file = e.target.files[0];
+        formData.append("image", file);
+
+        await fetch(apiUrl + 'image/temp', {
+            'method': 'POST',
+            'headers': {
+
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token()}`
+
+            },
+            body: formData
+
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status == false) {
+                    toast.error(result.error.image[0])
+                } else {
+                    setImageId(result.data.id)
+                }
+
+            });
     }
 
     return (
@@ -67,6 +106,7 @@ const Create = () => {
                                         <div className='mb-3'>
                                             <label htmlFor="" className='form-label'>Name</label>
                                             <input
+                                                placeholder='Title'
                                                 {
                                                 ...register('title', {
                                                     required: "The title field is required"
@@ -82,6 +122,7 @@ const Create = () => {
                                         <div className='mb-3'>
                                             <label htmlFor="" className='form-label'>Slug</label>
                                             <input
+                                                placeholder='Slug'
                                                 {
                                                 ...register('slug', {
                                                     required: "The slug field is required"
@@ -96,20 +137,31 @@ const Create = () => {
 
                                         <div className='mb-3'>
                                             <label htmlFor="" className='form-label'>Short Description</label>
-                                            <textarea
-                                                {
-                                                ...register('short desc')
-                                                }
-                                                className='form-control' rows={3}></textarea>
+                                            <JoditEditor
+                                                ref={editor}
+                                                config={config}
+                                                tabIndex={1} //tabindex of textarea
+                                                onBlur={newContent => setContent(newContent)}
+                                                onChange={newContent => { }}
+                                            />
+
+
                                         </div>
 
                                         <div className='mb-3'>
                                             <label htmlFor="" className='form-label'>Content</label>
                                             <textarea
+                                                placeholder='Content'
                                                 {
                                                 ...register('content')
                                                 }
                                                 className='form-control' rows={3}></textarea>
+                                        </div>
+
+                                        <div className='mb-3'>
+                                            <label htmlFor="" className='form-label'>Image</label>
+                                            <br />
+                                            <input onChange={handleFile} type="file" />
                                         </div>
                                         <div className='mb-3'>
                                             <label htmlFor="" className='form-label'>Status</label>
@@ -122,7 +174,7 @@ const Create = () => {
                                                 <option value="0">Block</option>
                                             </select>
                                         </div>
-                                        <button className='btn btn-primary'>Submit</button>
+                                        <button disabled={isDisable} className='btn btn-primary'>Submit</button>
                                     </form>
 
 
