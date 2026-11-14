@@ -27,7 +27,7 @@ const Show = () => {
 
     useEffect(() => {
         fetchServices();
-    });
+    }, []);
 
     return (
         <>
@@ -73,8 +73,8 @@ const Show = () => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                <a href="" className='btn btn-primary btn-sm'>Edit</a>
-                                                                <a href="" className='btn btn-secondary btn-sm ms-2 ' >Delete</a>
+                                                                <Link to={`/admin/services/edit/${service.id}`} className='btn btn-primary btn-sm'>Edit</Link>
+                                                                <Link href="#" className='btn btn-secondary btn-sm ms-2 ' >Delete</Link>
                                                             </td>
                                                         </tr>
                                                     )

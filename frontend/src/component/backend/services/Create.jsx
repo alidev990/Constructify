@@ -10,7 +10,7 @@ import JoditEditor from 'jodit-react';
 
 const Create = ({ placeholder }) => {
     const editor = useRef(null);
-    const [contet, setContent] = useState('');
+    const [content, setContent] = useState('');
     const [isDisable, setIsDisable] = useState(false);
     const [imageId, setImageId] = useState(null);
     const config = useMemo(() => ({
@@ -29,7 +29,11 @@ const Create = ({ placeholder }) => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        const newData = { ...data, "content": content }
+        const newData = {
+            ...data,
+            content: content,
+            image: imageId
+        };
         const res = await fetch(apiUrl + 'service/store', {
             'method': 'POST',
             'headers': {
